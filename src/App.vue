@@ -22,6 +22,15 @@
                 <p v-local-highlight:background.deleyed.blink="{mainColor: 'red', secondColor: 'green', delay: 500}">Color THIS</p>
             </div>
         </div>
+
+        <hr>
+        <button v-customOn:click="clicked" class="btn btn-primary">Click Me</button>
+        <hr>
+        <div 
+            style="width: 100px; height: 100px; background: lightgreen"
+            v-customOn:mouseenter="mouseEnter"
+            v-customOn:mouseleave="mouseLeave">
+        </div>
     </div>
 </template>
 
@@ -59,6 +68,24 @@
                         }, delay)
                     }
                 }
+            },
+            customOn: {
+                bind(el, binding) {
+                    const type = binding.arg
+                    const fn = binding.value
+                    el.addEventListener(type, fn)
+                }               
+            },
+        },
+        methods: {
+            clicked() {
+                alert('Clicked')
+            },
+            mouseEnter() {
+                console.log('mouse enter')
+            },
+            mouseLeave() {
+                console.log('mouse leave')
             }
         }
     }
